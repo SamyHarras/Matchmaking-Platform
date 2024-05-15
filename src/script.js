@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Meeting canceled successfully!');
             }
         } else {
-            if (bookings[userName].length >= 6) {
-                alert('You have reached the maximum number of bookings (6).');
+            if (bookings[userName].length >= 11) {
+                alert('You have reached the maximum number of bookings (10).');
                 return;
             }
             if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
