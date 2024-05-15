@@ -2,41 +2,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('currentUser');
 
     function bookMeeting(expertName) {
-        if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
-            const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-            if (!bookings[userName]) {
-                bookings[userName] = [];
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+        if (!bookings[userName]) {
+            bookings[userName] = [];
+        }
+        if (bookings[userName].includes(expertName)) {
+            if (confirm(`Do you want to cancel the meeting with ${expertName}?`)) {
+                bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                updateButton(expertName, false);
+                alert('Meeting canceled successfully!');
             }
-            if (bookings[userName].includes(expertName)) {
-                alert('You have already booked a meeting with this expert.');
-                return;
-            }
+        } else {
             if (bookings[userName].length >= 6) {
                 alert('You have reached the maximum number of bookings (6).');
                 return;
             }
-            bookings[userName].push(expertName);
-            localStorage.setItem('bookings', JSON.stringify(bookings));
-            updateButton(expertName);
-            alert('Meeting booked successfully!');
+            if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
+                bookings[userName].push(expertName);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                updateButton(expertName, true);
+                alert('Meeting booked successfully!');
+            }
         }
     }
 
-    function clearBookings() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
-    }
-
-
-    function updateButton(expertName) {
+    function updateButton(expertName, booked) {
         const buttons = document.querySelectorAll(`[data-expert='${expertName}']`);
-        console.log(`Updating buttons for expert: ${expertName}`, buttons);
         buttons.forEach(button => {
-            button.classList.add('booked');
-            button.style.backgroundColor = 'orange';
-            button.style.pointerEvents = 'none';
-            button.textContent = 'Booked';
+            if (booked) {
+                button.classList.add('booked');
+                button.style.backgroundColor = 'orange';
+                button.textContent = 'Cancel Meeting';
+                button.style.pointerEvents = 'auto';
+            } else {
+                button.classList.remove('booked');
+                button.style.backgroundColor = '';
+                button.textContent = 'Book Meeting';
+                button.style.pointerEvents = 'auto';
+            }
         });
     }
 
@@ -45,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('All bookings have been cleared.');
         location.reload();
     }
-
 
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
     if (bookings[userName]) {
         bookings[userName].forEach(expertName => {
-            updateButton(expertName);
+            updateButton(expertName, true);
         });
     }
 });
@@ -95,22 +98,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookingsContainer = document.getElementById('bookings-container');
     const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
 
+    const userTable = document.createElement('table');
+    userTable.classList.add('bookings-table');
+
+    const userHeaderRow = document.createElement('tr');
+    userHeaderRow.innerHTML = '<th>User</th><th>Startups</th>';
+    userTable.appendChild(userHeaderRow);
+
     for (const [user, experts] of Object.entries(bookings)) {
-        const userBookings = document.createElement('div');
-        userBookings.classList.add('user-bookings');
-        userBookings.innerHTML = `<h3>${user}</h3>`;
-        experts.forEach(expert => {
-            const expertItem = document.createElement('p');
-            expertItem.textContent = expert;
-            userBookings.appendChild(expertItem);
-        });
-        bookingsContainer.appendChild(userBookings);
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${user}</td><td>${experts.join(', ')}</td>`;
+        userTable.appendChild(row);
     }
+
+    bookingsContainer.appendChild(userTable);
+
+    const startupTable = document.createElement('table');
+    startupTable.classList.add('bookings-table');
+
+    const startupHeaderRow = document.createElement('tr');
+    startupHeaderRow.innerHTML = '<th>Startup</th><th>Users</th>';
+    startupTable.appendChild(startupHeaderRow);
+
+    const startupBookings = {};
+    for (const [user, experts] of Object.entries(bookings)) {
+        experts.forEach(expert => {
+            if (!startupBookings[expert]) {
+                startupBookings[expert] = [];
+            }
+            startupBookings[expert].push(user);
+        });
+    }
+
+    for (const [expert, users] of Object.entries(startupBookings)) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${expert}</td><td>${users.join(', ')}</td>`;
+        startupTable.appendChild(row);
+    }
+
+    bookingsContainer.appendChild(startupTable);
 
     window.clearBookings = function() {
         localStorage.removeItem('bookings');
         alert('All bookings have been cleared.');
         location.reload();
     };
-
 });
