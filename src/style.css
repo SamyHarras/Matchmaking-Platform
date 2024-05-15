@@ -148,6 +148,7 @@ body.dark-mode .meeting-time {
     transform: translateY(-3px);
 }
 
+
 .button-container {
     display: flex;
     justify-content: space-between;
