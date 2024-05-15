@@ -3,16 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const startupsContainer = document.getElementById('startups-container');
     const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
 
+    // Helper function to generate a safe ID from a username
+    function generateUserId(username) {
+        return username.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    }
+
     // Populate user boxes
     for (const [user, experts] of Object.entries(bookings)) {
-        const userBox = document.getElementById(user.toLowerCase().replace(' ', ''));
+        const userId = generateUserId(user);
+        const userBox = document.getElementById(userId);
         if (userBox) {
             const startupList = userBox.querySelector('.startup-list');
+            startupList.innerHTML = ''; // Clear previous content
             experts.forEach(expert => {
                 const expertItem = document.createElement('li');
                 expertItem.textContent = expert;
                 startupList.appendChild(expertItem);
             });
+        } else {
+            console.warn(`User box for user ID '${userId}' not found.`);
         }
     }
 
