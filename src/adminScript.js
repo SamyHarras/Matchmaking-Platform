@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (experts.includes(startup)) {
                 const userItem = document.createElement('p');
                 userItem.textContent = user;
-                bookingsContainer.appendChild(userItem);
+                content.appendChild(userItem);
             }
         }
     });
