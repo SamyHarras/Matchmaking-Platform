@@ -22,13 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function clearBookings() {
+        localStorage.removeItem('bookings');
+        alert('All bookings have been cleared.');
+        location.reload();
+    }
+
+
     function updateButton(expertName) {
         const buttons = document.querySelectorAll(`[data-expert='${expertName}']`);
-        console.log(`Updating buttons for expert: ${expertName}`, buttons); // Debugging line
+        console.log(`Updating buttons for expert: ${expertName}`, buttons);
         buttons.forEach(button => {
             button.classList.add('booked');
+            button.style.backgroundColor = 'orange';
+            button.style.pointerEvents = 'none';
+            button.textContent = 'Booked';
         });
     }
+
+    function clearBookings() {
+        localStorage.removeItem('bookings');
+        alert('All bookings have been cleared.');
+        location.reload();
+    }
+
 
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
@@ -89,4 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         bookingsContainer.appendChild(userBookings);
     }
+
+    window.clearBookings = function() {
+        localStorage.removeItem('bookings');
+        alert('All bookings have been cleared.');
+        location.reload();
+    };
+
 });
