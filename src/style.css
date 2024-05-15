@@ -4,9 +4,15 @@
     box-sizing: border-box;
 }
 
+.header-logo {
+    height: 50px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #ff7900;
     color: #333;
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
@@ -63,7 +69,7 @@ body.dark-mode #search-bar {
 }
 
 body.dark-mode .expert-box {
-    background: linear-gradient(135deg, #333 0%, #444 100%);
+    background: linear-gradient(135deg, #ff7900 0%, #000000 100%);
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
@@ -130,6 +136,11 @@ body.dark-mode .meeting-time {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     white-space: nowrap;
+}
+
+.button.booked {
+    background-color: orange !important;
+    pointer-events: none;
 }
 
 .button:hover {
@@ -199,7 +210,7 @@ footer {
 }
 
 body.dark-mode #theme-switcher {
-    background-color: #333;
+    background-color: #ff7900;
     color: #fff;
     border: 1px solid #555;
 }
@@ -220,4 +231,8 @@ body.dark-mode #theme-switcher {
     height: 20px;
     margin: 0 5px;
     border-radius: 3px;
+}
+
+.user-bookings {
+    margin-bottom: 20px;
 }
