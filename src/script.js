@@ -44,12 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function clearBookings() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
-    }
-
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
         const experts = document.querySelectorAll('.expert-box');
@@ -91,56 +85,4 @@ document.addEventListener('DOMContentLoaded', () => {
             updateButton(expertName, true);
         });
     }
-});
-
-// Admin page script
-document.addEventListener('DOMContentLoaded', () => {
-    const bookingsContainer = document.getElementById('bookings-container');
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-
-    const userTable = document.createElement('table');
-    userTable.classList.add('bookings-table');
-
-    const userHeaderRow = document.createElement('tr');
-    userHeaderRow.innerHTML = '<th>User</th><th>Startups</th>';
-    userTable.appendChild(userHeaderRow);
-
-    for (const [user, experts] of Object.entries(bookings)) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${user}</td><td>${experts.join(', ')}</td>`;
-        userTable.appendChild(row);
-    }
-
-    bookingsContainer.appendChild(userTable);
-
-    const startupTable = document.createElement('table');
-    startupTable.classList.add('bookings-table');
-
-    const startupHeaderRow = document.createElement('tr');
-    startupHeaderRow.innerHTML = '<th>Startup</th><th>Users</th>';
-    startupTable.appendChild(startupHeaderRow);
-
-    const startupBookings = {};
-    for (const [user, experts] of Object.entries(bookings)) {
-        experts.forEach(expert => {
-            if (!startupBookings[expert]) {
-                startupBookings[expert] = [];
-            }
-            startupBookings[expert].push(user);
-        });
-    }
-
-    for (const [expert, users] of Object.entries(startupBookings)) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${expert}</td><td>${users.join(', ')}</td>`;
-        startupTable.appendChild(row);
-    }
-
-    bookingsContainer.appendChild(startupTable);
-
-    window.clearBookings = function() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
-    };
 });
