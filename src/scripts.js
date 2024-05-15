@@ -9,7 +9,8 @@ const users = [
     { username: "user8", password: "odcpass8" },
     { username: "user9", password: "odcpass9" },
     { username: "user10", password: "odcpass10" },
-    { username: "user11", password: "odcpass11" }
+    { username: "user11", password: "odcpass11" },
+    { username: "admin", password: "odcadmin" }
 ];
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
