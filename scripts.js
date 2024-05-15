@@ -22,7 +22,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 
     if (user) {
         localStorage.setItem('currentUser', username);
-        window.location.href = "../matchmakingPage.html";
+        window.location.href = "matchmakingPage.html";
     } else {
         document.getElementById('error').innerText = "Invalid username or password";
     }
