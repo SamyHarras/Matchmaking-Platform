@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.header-text {
+    margin-left: 45px;
+}
+
 .header-logo {
     height: 50px;
     margin-right: 10px;
