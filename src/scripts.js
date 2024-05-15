@@ -7,9 +7,9 @@ const users = [
     { username: "alia", password: "odcpass6" },
     { username: "yvan", password: "odcpass7" },
     { username: "brutus", password: "odcpass8" },
-    { username: "user9", password: "odcpass9" },
-    { username: "user10", password: "odcpass10" },
-    { username: "user11", password: "odcpass11" },
+    { username: "najib", password: "odcpass9" },
+    { username: "alyune", password: "odcpass10" },
+    { username: "babacar", password: "odcpass11" },
     { username: "admin", password: "odcadmin" }
 ];
 
