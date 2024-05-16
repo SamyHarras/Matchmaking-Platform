@@ -1,10 +1,7 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const bookingsContainer = document.getElementById('bookings-container');
     const startupsContainer = document.getElementById('startups-container');
-
-    // Fetch bookings from the server
-    const response = await fetch('https://matchmaking-platform1.onrender.com/api/bookings');
-    const bookings = await response.json();
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
 
     // Helper function to generate a safe ID from a username
     function generateUserId(username) {
@@ -58,13 +55,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    window.clearBookings = async function() {
-        const response = await fetch('https://matchmaking-platform1.onrender.com/api/clear', { method: 'POST' });
-        if (response.ok) {
-            alert('All bookings have been cleared.');
-            location.reload();
-        } else {
-            alert('Failed to clear bookings.');
-        }
+    window.clearBookings = function() {
+        localStorage.removeItem('bookings');
+        alert('All bookings have been cleared.');
+        location.reload();
     };
 });
