@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
         const experts = document.querySelectorAll('.expert-box');
