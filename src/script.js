@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function bookMeeting(expertName) {
         // Change endpoint to match the server
-        const response = await fetch('http://localhost:3000/api/book', {
+        const response = await fetch('https://matchmaking-platform1.onrender.com/api/book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     async function updateBookedList() {
-        const response = await fetch(`http://localhost:3000/api/bookings?user=${userName}`);
+        const response = await fetch(`https://matchmaking-platform1.onrender.com/api/bookings?user=${userName}`);
         const bookings = await response.json();
 
         const bookedList = document.getElementById('booked-startups-list');
