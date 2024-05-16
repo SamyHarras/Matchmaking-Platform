@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
                 localStorage.setItem('bookings', JSON.stringify(bookings));
                 updateButton(expertName, false);
+                updateBookedList();
                 alert('Meeting canceled successfully!');
             }
         } else {
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bookings[userName].push(expertName);
                 localStorage.setItem('bookings', JSON.stringify(bookings));
                 updateButton(expertName, true);
+                updateBookedList();
                 alert('Meeting booked successfully!');
             }
         }
@@ -43,6 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    function updateBookedList() {
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+        const bookedList = document.getElementById('booked-startups-list');
+        bookedList.innerHTML = ''; // Clear previous list
+        if (bookings[userName]) {
+            bookings[userName].forEach(expertName => {
+                const listItem = document.createElement('li');
+                listItem.textContent = expertName;
+                bookedList.appendChild(listItem);
+            });
+        }
+    }
+
 
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
@@ -78,11 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Load initial button states
+    // Load initial button states and booked list
     const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
     if (bookings[userName]) {
         bookings[userName].forEach(expertName => {
             updateButton(expertName, true);
         });
+        updateBookedList();
     }
 });
