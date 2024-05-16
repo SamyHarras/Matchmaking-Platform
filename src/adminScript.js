@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const startupsContainer = document.getElementById('startups-container');
 
     // Fetch bookings from the server
-    const response = await fetch('/bookings');
+    const response = await fetch('http://localhost:3000/api/bookings');
     const bookings = await response.json();
 
     // Helper function to generate a safe ID from a username
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     window.clearBookings = async function() {
-        const response = await fetch('/clearBookings', { method: 'POST' });
+        const response = await fetch('http://localhost:3000/api/clear', { method: 'POST' });
         if (response.ok) {
             alert('All bookings have been cleared.');
             location.reload();

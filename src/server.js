@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Import cors package
+
 const app = express();
 const port = 3000;
 
+app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,15 +26,20 @@ app.post('/api/book', (req, res) => {
         bookings[userName] = [];
     }
 
+    let message;
+    let booked = false;
     if (bookings[userName].includes(expertName)) {
         bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
         bookingHistory.push(`${userName} cancelled booking with ${expertName}`);
+        message = `Cancelled booking with ${expertName}`;
     } else {
         bookings[userName].push(expertName);
         bookingHistory.push(`${userName} booked a meeting with ${expertName}`);
+        booked = true;
+        message = `Booked a meeting with ${expertName}`;
     }
 
-    res.sendStatus(200);
+    res.json({ success: true, booked, message });
 });
 
 app.post('/api/clear', (req, res) => {

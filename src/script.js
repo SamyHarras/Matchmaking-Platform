@@ -2,12 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('currentUser');
 
     async function bookMeeting(expertName) {
-        const response = await fetch('/book', {
+        // Change endpoint to match the server
+        const response = await fetch('http://localhost:3000/api/book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user: userName, expert: expertName })
+            body: JSON.stringify({ userName: userName, expertName: expertName })
         });
 
         const result = await response.json();
@@ -36,18 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
     async function updateBookedList() {
-        const response = await fetch(`/bookings?user=${userName}`);
+        const response = await fetch(`http://localhost:3000/api/bookings?user=${userName}`);
         const bookings = await response.json();
 
         const bookedList = document.getElementById('booked-startups-list');
         bookedList.innerHTML = ''; // Clear previous list
-        bookings.forEach(expertName => {
-            const listItem = document.createElement('li');
-            listItem.textContent = expertName;
-            bookedList.appendChild(listItem);
-        });
+
+        if (bookings[userName]) {
+            bookings[userName].forEach(expertName => {
+                const listItem = document.createElement('li');
+                listItem.textContent = expertName;
+                bookedList.appendChild(listItem);
+            });
+        }
     }
 
 
