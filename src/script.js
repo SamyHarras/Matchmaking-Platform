@@ -1,31 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('currentUser');
 
-    function bookMeeting(expertName) {
-        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-        if (!bookings[userName]) {
-            bookings[userName] = [];
-        }
-        if (bookings[userName].includes(expertName)) {
-            if (confirm(`Do you want to cancel the meeting with ${expertName}?`)) {
-                bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
-                localStorage.setItem('bookings', JSON.stringify(bookings));
-                updateButton(expertName, false);
-                updateBookedList();
-                alert('Meeting canceled successfully!');
-            }
+    async function bookMeeting(expertName) {
+        const response = await fetch('/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user: userName, expert: expertName })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            updateButton(expertName, result.booked);
+            updateBookedList();
+            alert(result.message);
         } else {
-            if (bookings[userName].length >= 11) {
-                alert('You have reached the maximum number of bookings (10).');
-                return;
-            }
-            if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
-                bookings[userName].push(expertName);
-                localStorage.setItem('bookings', JSON.stringify(bookings));
-                updateButton(expertName, true);
-                updateBookedList();
-                alert('Meeting booked successfully!');
-            }
+            alert(result.message);
         }
     }
 
@@ -46,17 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function updateBookedList() {
-        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+    async function updateBookedList() {
+        const response = await fetch(`/bookings?user=${userName}`);
+        const bookings = await response.json();
+
         const bookedList = document.getElementById('booked-startups-list');
         bookedList.innerHTML = ''; // Clear previous list
-        if (bookings[userName]) {
-            bookings[userName].forEach(expertName => {
-                const listItem = document.createElement('li');
-                listItem.textContent = expertName;
-                bookedList.appendChild(listItem);
-            });
-        }
+        bookings.forEach(expertName => {
+            const listItem = document.createElement('li');
+            listItem.textContent = expertName;
+            bookedList.appendChild(listItem);
+        });
     }
 
 
@@ -95,11 +86,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Load initial button states and booked list
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-    if (bookings[userName]) {
-        bookings[userName].forEach(expertName => {
-            updateButton(expertName, true);
-        });
-        updateBookedList();
-    }
+    updateBookedList();
 });

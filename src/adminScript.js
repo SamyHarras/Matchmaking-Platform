@@ -1,7 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const bookingsContainer = document.getElementById('bookings-container');
     const startupsContainer = document.getElementById('startups-container');
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+
+    // Fetch bookings from the server
+    const response = await fetch('/bookings');
+    const bookings = await response.json();
 
     // Helper function to generate a safe ID from a username
     function generateUserId(username) {
@@ -55,9 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.clearBookings = function() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
+    window.clearBookings = async function() {
+        const response = await fetch('/clearBookings', { method: 'POST' });
+        if (response.ok) {
+            alert('All bookings have been cleared.');
+            location.reload();
+        } else {
+            alert('Failed to clear bookings.');
+        }
     };
 });
