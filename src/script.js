@@ -1,23 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userName = localStorage.getItem('currentUser');
 
-    async function bookMeeting(expertName) {
-        // Change endpoint to match the server
-        const response = await fetch('https://matchmaking-platform1.onrender.com/api/book', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userName: userName, expertName: expertName })
-        });
-
-        const result = await response.json();
-        if (result.success) {
-            updateButton(expertName, result.booked);
-            updateBookedList();
-            alert(result.message);
+    function bookMeeting(expertName) {
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+        if (!bookings[userName]) {
+            bookings[userName] = [];
+        }
+        if (bookings[userName].includes(expertName)) {
+            if (confirm(`Do you want to cancel the meeting with ${expertName}?`)) {
+                bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                updateButton(expertName, false);
+                updateBookedList();
+                alert('Meeting canceled successfully!');
+            }
         } else {
-            alert(result.message);
+            if (bookings[userName].length >= 11) {
+                alert('You have reached the maximum number of bookings (10).');
+                return;
+            }
+            if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
+                bookings[userName].push(expertName);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                updateButton(expertName, true);
+                updateBookedList();
+                alert('Meeting booked successfully!');
+            }
         }
     }
 
@@ -38,13 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    async function updateBookedList() {
-        const response = await fetch(`https://matchmaking-platform1.onrender.com/api/bookings`);
-        const bookings = await response.json();
-
+    function updateBookedList() {
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
         const bookedList = document.getElementById('booked-startups-list');
         bookedList.innerHTML = ''; // Clear previous list
-
         if (bookings[userName]) {
             bookings[userName].forEach(expertName => {
                 const listItem = document.createElement('li');
@@ -53,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
 
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
@@ -89,5 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Load initial button states and booked list
-    updateBookedList();
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+    if (bookings[userName]) {
+        bookings[userName].forEach(expertName => {
+            updateButton(expertName, true);
+        });
+        updateBookedList();
+    }
 });
