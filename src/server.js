@@ -1,17 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import cors package
+const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use the port provided by Render.com or default to 3000
 
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let bookings = {};
 let bookingHistory = [];
 
+// Handle API requests
 app.get('/api/bookings', (req, res) => {
     res.json(bookings);
 });
