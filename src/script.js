@@ -37,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
     async function updateBookedList() {
-        const response = await fetch(`https://matchmaking-platform1.onrender.com/api/bookings?user=${userName}`);
+        const response = await fetch(`https://matchmaking-platform1.onrender.com/api/bookings`);
         const bookings = await response.json();
 
         const bookedList = document.getElementById('booked-startups-list');
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
 
     function searchExperts() {
         const searchTerm = document.getElementById('search-bar').value.toLowerCase();
