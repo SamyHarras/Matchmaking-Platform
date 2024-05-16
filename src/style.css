@@ -241,3 +241,110 @@ body.dark-mode #theme-switcher {
 .user-bookings {
     margin-bottom: 20px;
 }
+
+.user-bookings {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 30px;
+    width: 31%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+body.dark-mode .user-bookings {
+    background: linear-gradient(135deg, #ff7900 0%, #000000 100%);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.user-bookings h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+body.dark-mode .user-bookings h2 {
+    color: #f9f9f9;
+}
+
+.user-bookings .startup-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-bookings .startup-list li {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+body.dark-mode .user-bookings .startup-list li {
+    color: #ddd;
+}
+
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .header-text {
+        display: none;
+    }
+
+    #search-bar {
+        width: 95%;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .expert-box {
+        width: 90%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        justify-content: space-around;
+    }
+
+    .expert-box {
+        width: 45%;
+    }
+}
+
+/* iPhone 13, 14, 15 specific styles */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3)
+and (orientation: portrait) {
+    .expert-box {
+        width: 90%;
+    }
+}
+
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3)
+and (orientation: landscape) {
+    .expert-box {
+        width: 45%;
+    }
+}

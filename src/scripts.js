@@ -1,15 +1,16 @@
 const users = [
-    { username: "user1", password: "pass1" },
-    { username: "user2", password: "pass2" },
-    { username: "user3", password: "pass3" },
-    { username: "user4", password: "pass4" },
-    { username: "user5", password: "pass5" },
-    { username: "user6", password: "pass6" },
-    { username: "user7", password: "pass7" },
-    { username: "user8", password: "pass8" },
-    { username: "user9", password: "pass9" },
-    { username: "user10", password: "pass10" },
-    { username: "user11", password: "pass11" }
+    { username: "amine", password: "odcpass1" },
+    { username: "yvan", password: "odcpass2" },
+    { username: "faycal", password: "odcpass3" },
+    { username: "adama", password: "odcpass4" },
+    { username: "ismael", password: "odcpass5" },
+    { username: "alia", password: "odcpass6" },
+    { username: "asma", password: "odcpass7" },
+    { username: "brutus", password: "odcpass8" },
+    { username: "najib", password: "odcpass9" },
+    { username: "alyune", password: "odcpass10" },
+    { username: "babacar", password: "odcpass11" },
+    { username: "admin", password: "odcadmin" }
 ];
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {

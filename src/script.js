@@ -11,17 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 bookings[userName] = bookings[userName].filter(expert => expert !== expertName);
                 localStorage.setItem('bookings', JSON.stringify(bookings));
                 updateButton(expertName, false);
+                updateBookedList();
                 alert('Meeting canceled successfully!');
             }
         } else {
-            if (bookings[userName].length >= 6) {
-                alert('You have reached the maximum number of bookings (6).');
+            if (bookings[userName].length >= 11) {
+                alert('You have reached the maximum number of bookings (10).');
                 return;
             }
             if (confirm(`Do you want to book a meeting with ${expertName}?`)) {
                 bookings[userName].push(expertName);
                 localStorage.setItem('bookings', JSON.stringify(bookings));
                 updateButton(expertName, true);
+                updateBookedList();
                 alert('Meeting booked successfully!');
             }
         }
@@ -44,10 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function clearBookings() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
+    function updateBookedList() {
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
+        const bookedList = document.getElementById('booked-startups-list');
+        bookedList.innerHTML = ''; // Clear previous list
+        if (bookings[userName]) {
+            bookings[userName].forEach(expertName => {
+                const listItem = document.createElement('li');
+                listItem.textContent = expertName;
+                bookedList.appendChild(listItem);
+            });
+        }
     }
 
     function searchExperts() {
@@ -84,63 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Load initial button states
+    // Load initial button states and booked list
     const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
     if (bookings[userName]) {
         bookings[userName].forEach(expertName => {
             updateButton(expertName, true);
         });
+        updateBookedList();
     }
-});
-
-// Admin page script
-document.addEventListener('DOMContentLoaded', () => {
-    const bookingsContainer = document.getElementById('bookings-container');
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-
-    const userTable = document.createElement('table');
-    userTable.classList.add('bookings-table');
-
-    const userHeaderRow = document.createElement('tr');
-    userHeaderRow.innerHTML = '<th>User</th><th>Startups</th>';
-    userTable.appendChild(userHeaderRow);
-
-    for (const [user, experts] of Object.entries(bookings)) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${user}</td><td>${experts.join(', ')}</td>`;
-        userTable.appendChild(row);
-    }
-
-    bookingsContainer.appendChild(userTable);
-
-    const startupTable = document.createElement('table');
-    startupTable.classList.add('bookings-table');
-
-    const startupHeaderRow = document.createElement('tr');
-    startupHeaderRow.innerHTML = '<th>Startup</th><th>Users</th>';
-    startupTable.appendChild(startupHeaderRow);
-
-    const startupBookings = {};
-    for (const [user, experts] of Object.entries(bookings)) {
-        experts.forEach(expert => {
-            if (!startupBookings[expert]) {
-                startupBookings[expert] = [];
-            }
-            startupBookings[expert].push(user);
-        });
-    }
-
-    for (const [expert, users] of Object.entries(startupBookings)) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${expert}</td><td>${users.join(', ')}</td>`;
-        startupTable.appendChild(row);
-    }
-
-    bookingsContainer.appendChild(startupTable);
-
-    window.clearBookings = function() {
-        localStorage.removeItem('bookings');
-        alert('All bookings have been cleared.');
-        location.reload();
-    };
 });
