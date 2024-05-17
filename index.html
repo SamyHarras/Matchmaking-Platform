@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="images/orange.png" alt="Orange Logo" class="header-logo">
+        <span>Orange Fab Morocco</span>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="error" class="error"></p>
+        </div>
+    </div>
+
+    <!-- Inclure Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Votre configuration Firebase
+        const firebaseConfig = {
+        apiKey: "AIzaSyC-prGP8RsMBgnTqZoJCs5gU2VBBTuKSIE",
+        authDomain: "booknow-f666b.firebaseapp.com",
+        databaseURL: "https://booknow-f666b-default-rtdb.firebaseio.com",
+        projectId: "booknow-f666b",
+        storageBucket: "booknow-f666b.appspot.com",
+        messagingSenderId: "157630359668",
+        appId: "1:157630359668:web:67eeaf429392f2b5820921",
+        measurementId: "G-CSPNH7ZHR1"
+        };
+        
+        // Initialiser Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.database();
+
+        // Fonction pour authentifier les utilisateurs
+        function authenticateUser(username, password) {
+            var usersRef = db.ref('users');
+            usersRef.once('value', function(snapshot) {
+                var usersData = snapshot.val();
+                var userFound = false;
+                snapshot.forEach(function(childSnapshot) {
+                    var user = childSnapshot.val();
+                    if (user.username === username && user.password === password) {
+                        localStorage.setItem('currentUser', username);
+                        window.location.href = "matchmakingPage.html";
+                        userFound = true;
+                    }
+                });
+                if (!userFound) {
+                    console.log("Utilisateur non trouvé");
+                    document.getElementById('error').innerText = "Utilisateur non trouvé";
+                }
+            });
+        }
+
+        // Écouteur d'événements pour le formulaire de connexion
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            authenticateUser(username, password);
+        });
+    </script>
+</body>
+</html>

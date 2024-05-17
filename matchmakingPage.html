@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Matchmaking System</title>
+    <link rel="stylesheet" href="src/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<header>
+    <img src="images/orange.png" alt="Orange Logo" class="header-logo">
+    <span class="header-text">Orange Fab Morocco</span>
+    <button id="theme-switcher" onclick="switchTheme()">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+</header>
+<h1>SPEED DATING</h1>
+<div class="search-container">
+    <input type="text" id="search-bar" placeholder="Search for startups..." onkeyup="searchExperts()">
+</div>
+<div class="container" id="experts-container">
+
+    <div class="expert-box user-bookings" id="user-bookings">
+        <h2>Your Booked Startups</h2>
+        <ul id="booked-startups-list" class="startup-list"></ul>
+    </div>    
+
+    <div class="expert-box">
+        <img src="images/ToumAI.png" alt="ToumAI Logo" class="expert-logo">
+        <div class="expert-name">ToumAI</div>
+        <div class="startup-description">ToumAI merges multilingual & generative voice analytics for customer relationship management. Let us manage your international contact center flawlessly and be on top of inclusion & everything your customers need.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="ToumAI">Book Meeting</button>
+            <a href="presentations/toumai.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.toumai-voice-analytics.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Pwn.png" alt="Pwn & Patch Logo" class="expert-logo">
+        <div class="expert-name">Pwn & Patch</div>
+        <div class="startup-description">Pwn&Patch is a cybersecurity consulting company that offers several services to help all types of businesses protect themselves against the security risks that are increasing day by day.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Pwn & Patch" >Book Meeting</button>
+            <a href="presentations/pwn.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.pwnandpatch.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Kereya.png" alt="KEREYA Logo" class="expert-logo">
+        <div class="expert-name">KEREYA</div>
+        <div class="startup-description">KEREYA is an Electronic Health Record (EHR) platform that enhances access to care and patient outcomes through the sharing of medical records.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="KEREYA" >Book Meeting</button>
+            <a href="presentations/kereya.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.kereya.sn/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/AquaDeep.png" alt="AquaDeep Logo" class="expert-logo">
+        <div class="expert-name">AquaDeep</div>
+        <div class="startup-description">Une solution technologique basée sur l’intelligence artificielle pour optimiser et rentabiliser la production des fermes aquacoles.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="AquaDeep" >Book Meeting</button>
+            <a href="presentations/aquadeep.pptx" class="button" download>Pitch Deck</a>
+            <a href="https://aquadeep.com.tn/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/ME.png" alt="ME MOBILE ECOSYSTEMS Logo" class="expert-logo">
+        <div class="expert-name">ME MOBILE ECOSYSTEMS</div>
+        <div class="startup-description">Développement d'un Pass Numérique Multiservices pour une authentication renforcée (KYC), visant à faciliter l'accès à l'inclusion financière et les services essentiels aux communautés du secteur informel.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="ME MOBILE ECOSYSTEMS" >Book Meeting</button>
+            <a href="presentations/me.pptx" class="button" download>Pitch Deck</a>
+            <a href="http://mobilecosystems.com" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Prilance.png" alt="Prilance Logo" class="expert-logo">
+        <div class="expert-name">Prilance</div>
+        <div class="startup-description">Prilance est une place de marché de services axée sur le freelancing. La plateforme offre plusieurs avantages, notamment la facilité d'utilisation, la transparence dans les transactions, et la flexibilité pour les utilisateurs.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Prilance" >Book Meeting</button>
+            <a href="presentations/prilance.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://prilance.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Subito.jpeg" alt="Subito International Logo" class="expert-logo">
+        <div class="expert-name">Subito International</div>
+        <div class="startup-description">Subito est la solution de mobilité qui vous débarrasse du stress dans vos voyages. La solution permet d’organiser les voyages (hébergements, navette aeroport, circuits touristiques, team building) des clients dans une seule interface et d’assurer le suivi.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Subito International" >Book Meeting</button>
+            <a href="presentations/subito.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.mysubito.net/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/SolarDev.png" alt="Solar Dev Logo" class="expert-logo">
+        <div class="expert-name">Solar Dev</div>
+        <div class="startup-description">Solar Dev a pour objectif de financer « l’économie réelle » à travers le développement de l’infrastructure en énergie solaire au Burkina Faso chez les petites, moyennes et grandes  entreprises afin de leur donner accès à une source d’énergie fiable et peu coûteuse pour soutenir leur besoin énergétique et leur croissance.</div>
+        <div class="flag-container">
+            <img src="flags/burkina.png" alt="Burkina Faso Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Solar Dev" >Book Meeting</button>
+            <a href="presentations/solar.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://solardevbf.com/en/home/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Pixii.png" alt="Pixii Motors Logo" class="expert-logo">
+        <div class="expert-name">Pixii Motors</div>
+        <div class="startup-description">Une solution, au cœur même des ODD, qui consiste à concevoir, produire et commercialiser un scooter électrique qui réunit à la fois autonomie, performance et design et qui respecte les normes internationales, grâce à des composants respectueux de l’environnement.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Pixii Motors" >Book Meeting</button>
+            <a href="presentations/pixii.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://pixiimotors.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/ClinicAgro.png" alt="CLINICAGRO Logo" class="expert-logo">
+        <div class="expert-name">CLINICAGRO</div>
+        <div class="startup-description">CLINICAGRO a developpé une application dotée d'une intelligence artificielle permettant aux agriculteurs d'analyser leur sol en 30 secondes, d'avoir un plan de fertilisation, un plan d'irrigation, d'une météo entichie, et d'identifier rapidement les maladies des cultures.</div>
+        <div class="flag-container">
+            <img src="flags/cameroon.png" alt="Cameroon Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="CLINICAGRO" >Book Meeting</button>
+            <a href="presentations/clinic.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://smsagri.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/edtrust.png" alt="EdTrust Logo" class="expert-logo">
+        <div class="expert-name">EdTrust</div>
+        <div class="startup-description">Un ensemble d’outils dédiés aux intervenants éducatifs dans le but de digitaliser et d’améliorer le processus éducatif.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="EdTrust" >Book Meeting</button>
+            <a href="presentations/edtrust.pptx" class="button" download>Pitch Deck</a>
+            <a href="https://edtrust.tn/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Wayout.png" alt="Wayout Logo" class="expert-logo">
+        <div class="expert-name">Wayout</div>
+        <div class="startup-description">Wayout se positionne comme porteuse de solutions contre les problématiques des inondations et de la pollution marine, via des solution pour l'infrastructure sous-terraine(réseau d'assainissement et d'égouts).</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Wayout" >Book Meeting</button>
+            <a href="presentations/wayout.pdf" class="button" download>Pitch Deck</a>
+            <a href="http://www.wayouteco.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Peelo.png" alt="Peelo Logo" class="expert-logo">
+        <div class="expert-name">Peelo</div>
+        <div class="startup-description">Rooted in inclusivity and accessibility, Peelo seamlessly incorporates local languages like Wolof through audio features, ensuring effective communication for all users. Our diverse range of services includes tailored chatbots for customer relations, e-commerce, and educational purposes, simplifying interactions, boosting sales, and extending business reach.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Peelo" >Book Meeting</button>
+            <a href="presentations/peelo.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://peelochat.mojay.pro/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Reebirth.png" alt="REEBIRTH Logo" class="expert-logo">
+        <div class="expert-name">REEBIRTH</div>
+        <div class="startup-description">REEBIRTH est une marketplace d’appareils électroniques reconditionnés et d’occasion en Afrique de l'Ouest. Elle rétablie la confiance avec des meilleurs produits, aux meilleurs prix et une garantie de 12 mois. REEBIRTH réduit aussi l’impact environnemental en prolongeant continuellement la durée de vie des produits.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="REEBIRTH" >Book Meeting</button>
+            <a href="presentations/reebirth.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://reebirth.co/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/AMRA.jpeg" alt="AMRA Logo" class="expert-logo">
+        <div class="expert-name">AMRA</div>
+        <div class="startup-description">AMRA SUARL propose un programme de santé basé sur la prévention des maladies animales et la valorisation des déchets d’élevage.</div>
+        <div class="flag-container">
+            <img src="flags/senegal.png" alt="Senegal Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="AMRA" >Book Meeting</button>
+            <a href="presentations/amra.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.facebook.com/amra.vet/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Yoteqi.png" alt="Yoteqi Logo" class="expert-logo">
+        <div class="expert-name">Yoteqi</div>
+        <div class="startup-description">Une solution innovante, en mode SAAS, conçue pour aider les professionnels à networker et acquérir de nouveaux clients, via des cartes de visite numériques (NFC), un générateur de site web personnel et un gestionnaire de contacts amélioré par intelligence artificielle/machine learning.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Yoteqi" >Book Meeting</button>
+            <a href="presentations/yoteqi.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://yoteqi.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Liberrex.png" alt="Liberrex Logo" class="expert-logo">
+        <div class="expert-name">Liberrex</div>
+        <div class="startup-description">Liberrex a été accélérée avec un contrat auprès d’une entreprise partenaire à Orange Tunisie dans le Secteur bancaire. Liberrex est passé par un POC de 6 mois avant de signer un premier contrat de déploiement auprès de 16 agences (Solution en production) et finalement un contrat pour 65 nouvelles agences.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Liberrex" >Book Meeting</button>
+            <a href="presentations/liberrex.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://liberrex.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Agriminga.png" alt="AGRIMINGA Logo" class="expert-logo">
+        <div class="expert-name">AGRIMINGA</div>
+        <div class="startup-description">AgriMinga est une entreprise d'agriculture hors sol hydroponique et aéroponique qui fait de la culture sous serres intelligentes.</div>
+        <div class="flag-container">
+            <img src="flags/burkina.png" alt="Burkina Faso Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="AGRIMINGA" >Book Meeting</button>
+            <a href="presentations/agriminga.pptx" class="button" download>Pitch Deck</a>
+            <a href="https://agriminga.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/pip.png" alt="PIP PIP YALAH Logo" class="expert-logo">
+        <div class="expert-name">PIP PIP YALAH</div>
+        <div class="startup-description">Pip Pip Yalah is a long-distance carpooling application, leader in mobility in Morocco, with a community of more than 400,000 members who are carpooling through their platforms every day.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="PIP PIP YALAH" >Book Meeting</button>
+            <a href="presentations/pip.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://pippipyalah.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Schoolify.png" alt="Schoolify Logo" class="expert-logo">
+        <div class="expert-name">Schoolify</div>
+        <div class="startup-description">Schoolify est une solution digitale dédiée aux écoles dont le but est d'offrir aux élèves et au parents d'élèves un meilleur suivi scolaire, c'est aussi un espace de gestion administrative et une application de géolocalisation du transport scolaire en temps réel.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Schoolify" >Book Meeting</button>
+            <a href="presentations/schoolify.pptx" class="button" download>Pitch Deck</a>
+            <a href="https://schoolify-edtech.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/SEHALINK.png" alt="SEHALINK (ex TA7ALIL.MA) Logo" class="expert-logo">
+        <div class="expert-name">SEHALINK (ex TA7ALIL.MA)</div>
+        <div class="startup-description">First health platform in Morocco that digitize all the medical records of patients.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="SEHALINK" >Book Meeting</button>
+            <a href="presentations/sehalink.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.ta7alil.ma/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/KHABIRY.png" alt="KHABIRY Logo" class="expert-logo">
+        <div class="expert-name">KHABIRY</div>
+        <div class="startup-description">Besoin d'un expert ? Vous êtes au bon endroit ! Trouvez l'expert qui répond à vos besoins en quelques clics.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="KHABIRY" >Book Meeting</button>
+            <a href="presentations/khabiry.pdf" class="button" download>Pitch Deck</a>
+            <a href="http://khabiry.com" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/WALLfit.png" alt="W.ALLfit Logo" class="expert-logo">
+        <div class="expert-name">W.ALLfit</div>
+        <div class="startup-description">An All-in-one fitness solution for women struggling with exercise movements, nutrition planning and motivation.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="W.ALLfit" >Book Meeting</button>
+            <a href="presentations/wall.pdf" class="button" download>Pitch Deck</a>
+            <a href="presentations/wall.pdf" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/wattnow.png" alt="Wattnow Logo" class="expert-logo">
+        <div class="expert-name">Wattnow</div>
+        <div class="startup-description">Solution IoT d'efficacité énergétique pour optimiser la consommation d'énergie de nos bâtiments administratifs, nos datacenters, etc.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Wattnow" >Book Meeting</button>
+            <a href="presentations/wattnow.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://wattnow.io/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Foodeals.png" alt="Foodeals Logo" class="expert-logo">
+        <div class="expert-name">Foodeals MEA</div>
+        <div class="startup-description">Global Food waste management system, that connects food industry players with users to sell them their unsold products.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Foodeals MEA" >Book Meeting</button>
+            <a href="presentations/foodeals.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.foodeals.ma/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Dealkhir.png" alt="DEALKHIR DaaS Logo" class="expert-logo">
+        <div class="expert-name">DEALKHIR DaaS</div>
+        <div class="startup-description">Dealkhir is a fundraising platform that weilds two lifestyles, shopping and donating, together in the forms of an online deal website to create a new alternative of giving back to the community.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="DEALKHIR DaaS" >Book Meeting</button>
+            <a href="presentations/delakhir.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://www.dealkhir.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/kwiks.png" alt="KWIKS FRC Logo" class="expert-logo">
+        <div class="expert-name">KWIKS FRC</div>
+        <div class="startup-description">KWIKS: The Marketplace that makes the recruitment smarter</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="KWIKS FRC" >Book Meeting</button>
+            <a href="presentations/kwiks.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://kwiks.io/?lang=en" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Jobold.jpeg" alt="Jobold Logo" class="expert-logo">
+        <div class="expert-name">Jobold</div>
+        <div class="startup-description">Jobold is an innovative AI-powered recruitment platform that simplifies the hiring process. We offer a user-friendly interface for candidates to create and customize CVs, including a unique voice-recorded option</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Jobold" >Book Meeting</button>
+            <a href="presentations/jobold.pptx" class="button" download>Pitch Deck</a>
+            <a href="presentations/jobold.pptx" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/ILEY.png" alt="ILEY'COM Logo" class="expert-logo">
+        <div class="expert-name">ILEY'COM</div>
+        <div class="startup-description">Une marketplace solidaire et omnicanale qui offre aux entrepreneurs, designers et artisans la possibilité de commercialiser leurs produits sur les marchés tunisien et international en seulement quelques clics.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="ILEY'COM" >Book Meeting</button>
+            <a href="presentations/iley.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://ileycom.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/lmarchi.jpeg" alt="Lmarchi.ma Logo" class="expert-logo">
+        <div class="expert-name">Lmarchi.ma</div>
+        <div class="startup-description">Lmarchi is a platform providing a wide range of consumable products at the best prices to restaurants and snack bars along with a streamlined ordering process via a mobile app that enables order tracking and invoice archiving.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Lmarchi.ma" >Book Meeting</button>
+            <a href="presentations/lmarchi.pdf" class="button" download>Pitch Deck</a>
+            <a href="http://lmarchi.ma/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/hopez.jpeg" alt="HOPEZ Logo" class="expert-logo">
+        <div class="expert-name">HOPEZ</div>
+        <div class="startup-description">Toc Toc is an AI-powered educational app by Hopez, providing personalized and engaging learning for Moroccan students, free Baccalaureate exam content, and advanced features via a budget-friendly freemium model.</div>
+        <div class="flag-container">
+            <img src="flags/morocco.png" alt="Morocco Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="HOPEZ">Book Meeting</button>
+            <a href="presentations/hopez.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://la-classe.vip/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/Historiar.png" alt="HISTORIAR Logo" class="expert-logo">
+        <div class="expert-name">HISTORIAR</div>
+        <div class="startup-description">Une start-up dans le domaine de la e-culture, qui reconstitue les sites archéologiques et patrimoniaux grâce à la réalité mixte et l’intelligence artificielle (IA).</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="HISTORIAR" >Book Meeting</button>
+            <a href="presentations/historiar.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://historiar.io/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/flouci.png" alt="Flouci Logo" class="expert-logo">
+        <div class="expert-name">Flouci (By Kaoun)</div>
+        <div class="startup-description">Une fintech innovante avec ses produits Flouci, une super-app financière offrant un accès facile à divers services, notamment le transfert d'argent et le paiement de factures, et subscribe.tn, une plateforme d'abonnements et services digitaux tels que la VOD, le gaming, etc.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="Flouci" >Book Meeting</button>
+            <a href="presentations/flouci.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://fr.flouci.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+    <div class="expert-box">
+        <img src="images/eSteps.png" alt="eSteps Health Logo" class="expert-logo">
+        <div class="expert-name">eSteps Health</div>
+        <div class="startup-description">Une solution de suivi à distance pour les maladies neurodégénératives et chroniques, comme par exemple la sclérose en plaques, à destination des patients et des professionnels de santé.</div>
+        <div class="flag-container">
+            <img src="flags/tunisia.png" alt="Tunisia Flag" class="flag">
+        </div>
+        <div class="button-container">
+            <button class="button book-meeting" data-expert="eSteps Health" >Book Meeting</button>
+            <a href="presentations/esteps.pdf" class="button" download>Pitch Deck</a>
+            <a href="https://estepshealth.com/" class="button" target="_blank">More</a>
+        </div>
+    </div>
+
+</div>
+<footer>
+    © 2024 Booking Platform. All Rights Reserved.
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>;
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>;
+</body>
+</html>
+
+<script>
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC-prGP8RsMBgnTqZoJCs5gU2VBBTuKSIE",
+  authDomain: "booknow-f666b.firebaseapp.com",
+  databaseURL: "https://booknow-f666b-default-rtdb.firebaseio.com",
+  projectId: "booknow-f666b",
+  storageBucket: "booknow-f666b.appspot.com",
+  messagingSenderId: "157630359668",
+  appId: "1:157630359668:web:67eeaf429392f2b5820921",
+  measurementId: "G-CSPNH7ZHR1"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Initialize Realtime Database
+const db = firebase.database();
+
+// Function to book a meeting
+function bookMeeting(bookName) {
+  const currentUser = localStorage.getItem('currentUser');
+  
+  if (!currentUser) {
+    alert('Please log in to book a meeting.');
+    return;
+  }
+
+  const bookingRef = db.ref('bookings').push();
+  bookingRef.set({
+    book: bookName,
+    user: currentUser
+  }).then(() => {
+    alert('Meeting booked successfully!');
+    displayUserBookings(); // Refresh the list
+  }).catch((error) => {
+    console.error('Error booking meeting:', error);
+  });
+}
+
+// Function to fetch and display bookings
+function displayUserBookings() {
+  const currentUser = localStorage.getItem('currentUser');
+
+  if (!currentUser) {
+    alert('Please log in to view your bookings.');
+    return;
+  }
+
+  const bookingsRef = db.ref('bookings');
+  bookingsRef.orderByChild('user').equalTo(currentUser).once('value', snapshot => {
+    const bookedStartupsList = document.getElementById('booked-startups-list');
+    bookedStartupsList.innerHTML = ''; // Clear previous entries
+
+    const uniqueBookNames = new Set();
+    snapshot.forEach(childSnapshot => {
+      const booking = childSnapshot.val();
+      const bookingKey = childSnapshot.key;
+
+      if (!uniqueBookNames.has(booking.book)) {
+        uniqueBookNames.add(booking.book);
+
+        const listItem = document.createElement('li');
+        listItem.textContent = booking.book;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.style.backgroundColor = 'red';
+        deleteButton.style.color = 'white';
+        deleteButton.style.border = 'none';
+        deleteButton.style.padding = '5px 10px';
+        deleteButton.style.cursor = 'pointer';
+        deleteButton.style.marginLeft="20px"
+        deleteButton.onclick = () => deleteBooking(bookingKey);
+
+        listItem.appendChild(deleteButton);
+        bookedStartupsList.appendChild(listItem);
+      }
+    });
+
+    if (uniqueBookNames.size === 0) {
+      bookedStartupsList.textContent = 'No bookings found.';
+    }
+
+    // Disable "Book Meeting" buttons for already booked startups
+    document.querySelectorAll('.book-meeting').forEach(button => {
+      const bookName = button.getAttribute('data-expert');
+      if (uniqueBookNames.has(bookName)) {
+        button.disabled = true;
+        button.textContent = 'Already Booked';
+      }
+    });
+  }).catch(error => {
+    console.error('Error fetching bookings:', error);
+  });
+}
+
+// Function to delete a booking
+function deleteBooking(bookingKey) {
+  db.ref('bookings/' + bookingKey).remove()
+    .then(() => {
+      alert('Booking deleted successfully!');
+      displayUserBookings(); 
+      location.reload(true);// Refresh the list
+    })
+    .catch(error => {
+      console.error('Error deleting booking:', error);
+    });
+}
+
+// Function to handle booking button click
+function handleBooking(event) {
+  const bookName = event.target.getAttribute('data-expert');
+  bookMeeting(bookName);
+}
+
+// Function to debounce user input
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Attach event listeners to booking buttons
+document.querySelectorAll('.book-meeting').forEach(button => {
+  button.removeEventListener('click', handleBooking);
+  button.addEventListener('click', debounce(handleBooking, 300));
+});
+
+// Fetch and display bookings on page load
+document.addEventListener('DOMContentLoaded', displayUserBookings);
+
+
+</script>
