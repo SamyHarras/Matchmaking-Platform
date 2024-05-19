@@ -16,6 +16,7 @@
         <i class="fas fa-sun"></i>
         <i class="fas fa-moon"></i>
     </button>
+ 
 </header>
 <h1>SPEED DATING</h1>
 <div class="search-container">
@@ -113,7 +114,7 @@
     </div>
 
     <div class="expert-box">
-        <img src="images/Subito.jpeg" alt="Subito International Logo" class="expert-logo">
+        <img src="images/Subito.png" alt="Subito International Logo" class="expert-logo">
         <div class="expert-name">Subito International</div>
         <div class="startup-description">Subito est la solution de mobilité qui vous débarrasse du stress dans vos voyages. La solution permet d’organiser les voyages (hébergements, navette aeroport, circuits touristiques, team building) des clients dans une seule interface et d’assurer le suivi.</div>
         <div class="flag-container">
@@ -225,7 +226,7 @@
     </div>
 
     <div class="expert-box">
-        <img src="images/AMRA.jpeg" alt="AMRA Logo" class="expert-logo">
+        <img src="images/AMRA.png" alt="AMRA Logo" class="expert-logo">
         <div class="expert-name">AMRA</div>
         <div class="startup-description">AMRA SUARL propose un programme de santé basé sur la prévention des maladies animales et la valorisation des déchets d’élevage.</div>
         <div class="flag-container">
@@ -407,7 +408,7 @@
     </div>
 
     <div class="expert-box">
-        <img src="images/Jobold.jpeg" alt="Jobold Logo" class="expert-logo">
+        <img src="images/Jobold.png" alt="Jobold Logo" class="expert-logo">
         <div class="expert-name">Jobold</div>
         <div class="startup-description">Jobold is an innovative AI-powered recruitment platform that simplifies the hiring process. We offer a user-friendly interface for candidates to create and customize CVs, including a unique voice-recorded option</div>
         <div class="flag-container">
@@ -435,7 +436,7 @@
     </div>
 
     <div class="expert-box">
-        <img src="images/lmarchi.jpeg" alt="Lmarchi.ma Logo" class="expert-logo">
+        <img src="images/lmarchi.png" alt="Lmarchi.ma Logo" class="expert-logo">
         <div class="expert-name">Lmarchi.ma</div>
         <div class="startup-description">Lmarchi is a platform providing a wide range of consumable products at the best prices to restaurants and snack bars along with a streamlined ordering process via a mobile app that enables order tracking and invoice archiving.</div>
         <div class="flag-container">
@@ -449,7 +450,7 @@
     </div>
 
     <div class="expert-box">
-        <img src="images/hopez.jpeg" alt="HOPEZ Logo" class="expert-logo">
+        <img src="images/hopez.png" alt="HOPEZ Logo" class="expert-logo">
         <div class="expert-name">HOPEZ</div>
         <div class="startup-description">Toc Toc is an AI-powered educational app by Hopez, providing personalized and engaging learning for Moroccan students, free Baccalaureate exam content, and advanced features via a budget-friendly freemium model.</div>
         <div class="flag-container">
@@ -526,6 +527,13 @@ const firebaseConfig = {
   appId: "1:157630359668:web:67eeaf429392f2b5820921",
   measurementId: "G-CSPNH7ZHR1"
 };
+
+function checkLogin() {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) {
+    window.location.href = "index.html";
+  }
+}
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -630,6 +638,8 @@ function handleBooking(event) {
   bookMeeting(bookName);
 }
 
+
+
 // Function to debounce user input
 function debounce(func, wait) {
   let timeout;
@@ -643,6 +653,35 @@ function debounce(func, wait) {
   };
 }
 
+function searchExperts() {
+  const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+  console.log('Search Term:', searchTerm);  
+  const experts = document.querySelectorAll('.expert-box');
+  console.log('Experts found:', experts.length); 
+  experts.forEach(expert => {
+    const nameElement = expert.querySelector('.expert-name');
+    const descriptionElement = expert.querySelector('.startup-description');
+    const name = nameElement ? nameElement.textContent.toLowerCase() : '';
+    const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
+    if (name.includes(searchTerm) || description.includes(searchTerm)) {
+      expert.style.display = '';
+    } else {
+      expert.style.display = 'none';
+    }
+  });
+}
+
+    function switchTheme() {
+        document.body.classList.toggle('dark-mode');
+        const themeSwitcher = document.getElementById('theme-switcher');
+        themeSwitcher.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            themeSwitcher.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+            themeSwitcher.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+    }
+
 // Attach event listeners to booking buttons
 document.querySelectorAll('.book-meeting').forEach(button => {
   button.removeEventListener('click', handleBooking);
@@ -650,7 +689,10 @@ document.querySelectorAll('.book-meeting').forEach(button => {
 });
 
 // Fetch and display bookings on page load
-document.addEventListener('DOMContentLoaded', displayUserBookings);
+document.addEventListener('DOMContentLoaded', () => {
+  checkLogin();
+  displayUserBookings();
+});
 
 
 </script>
