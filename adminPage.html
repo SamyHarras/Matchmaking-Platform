@@ -65,6 +65,98 @@
     © 2024 Booking Platform. All Rights Reserved.
     <button onclick="clearBookings()">Clear All Bookings</button>
 </footer>
-<script src="src/adminScript.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-prGP8RsMBgnTqZoJCs5gU2VBBTuKSIE",
+        authDomain: "booknow-f666b.firebaseapp.com",
+        databaseURL: "https://booknow-f666b-default-rtdb.firebaseio.com",
+        projectId: "booknow-f666b",
+        storageBucket: "booknow-f666b.appspot.com",
+        messagingSenderId: "157630359668",
+        appId: "1:157630359668:web:67eeaf429392f2b5820921",
+        measurementId: "G-CSPNH7ZHR1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Realtime Database
+    const db = firebase.database();
+
+    // Helper function to generate a safe ID from a username
+    function generateUserId(username) {
+        return username.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const bookingsContainer = document.getElementById('bookings-container');
+        const startupsContainer = document.getElementById('startups-container');
+
+        // Fetch bookings from Firebase
+        db.ref('bookings').once('value', snapshot => {
+            const bookings = snapshot.val() || {};
+
+            // Populate user boxes
+            for (const bookingId in bookings) {
+                const { user, book } = bookings[bookingId];
+                const userId = generateUserId(user);
+                const userBox = document.getElementById(userId);
+                if (userBox) {
+                    const startupList = userBox.querySelector('.startup-list');
+                    const listItem = document.createElement('li');
+                    listItem.textContent = book;
+                    startupList.appendChild(listItem);
+                } else {
+                    console.warn(`User box for user ID '${userId}' not found.`);
+                }
+            }
+
+            // Create a list of all startups
+            const allStartups = [
+                "ToumAI", "Pwn & Patch", "KEREYA", "AquaDeep", "ME MOBILE ECOSYSTEMS", "Prilance", "Subito International",
+                "Solar Dev", "Pixii Motors", "CLINICAGRO", "EdTrust", "Wayout", "Peelo", "REEBIRTH", "AMRA", "Yoteqi", "liberrex",
+                "AGRIMINGA", "PIP PIP YALAH", "Schoolify", "SEHALINK (ex TA7ALIL.MA)", "KHABIRY", "W.ALLfit", "Wattnow", "Foodeals MEA",
+                "DEALKHIR DaaS", "KWIKS FRC", "Jobold", "ILEY'COM", "Lmarchi.ma", "HOPEZ", "HISTORIAR", "Flouci (By Kaoun)", "eSteps Health"
+            ];
+
+            // Populate startups FAQ section
+            allStartups.forEach(startup => {
+                const faqItem = document.createElement('div');
+                faqItem.classList.add('faq-item');
+                faqItem.innerHTML = `<h3>${startup}</h3><div class="faq-item-content"></div>`;
+                startupsContainer.appendChild(faqItem);
+
+                faqItem.addEventListener('click', () => {
+                    const content = faqItem.querySelector('.faq-item-content');
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                });
+
+                const content = faqItem.querySelector('.faq-item-content');
+                for (const bookingId in bookings) {
+                    const { user, book } = bookings[bookingId];
+                    if (book === startup) {
+                        const userItem = document.createElement('p');
+                        userItem.textContent = user;
+                        content.appendChild(userItem);
+                    }
+                }
+            });
+        });
+
+        window.clearBookings = function() {
+            db.ref('bookings').remove()
+                .then(() => {
+                    alert('All bookings have been cleared.');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error clearing bookings:', error);
+                });
+        };
+    });
+</script>
 </body>
 </html>
