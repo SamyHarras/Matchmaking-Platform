@@ -64,9 +64,11 @@
 <footer>
     © 2024 Booking Platform. All Rights Reserved.
     <button onclick="clearBookings()">Clear All Bookings</button>
+    <button onclick="exportToExcel()">Export to Excel</button>
 </footer>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
 <script>
     // Your Firebase configuration
     const firebaseConfig = {
@@ -155,6 +157,49 @@
                 .catch(error => {
                     console.error('Error clearing bookings:', error);
                 });
+        };
+
+        window.exportToExcel = function() {
+            db.ref('bookings').once('value', snapshot => {
+                const bookings = snapshot.val() || {};
+
+                // List of all users
+                const allUsers = [
+                    'amine', 'yvan', 'faycal', 'adama', 'ismael', 'alia', 'asma', 'brutus', 'najib', 'alyune', 'babacar'
+                ];
+
+                // Initialize user booking dictionary
+                const users = {};
+                allUsers.forEach(user => users[user] = []);
+
+                // Organize bookings by user
+                for (const bookingId in bookings) {
+                    const { user, book } = bookings[bookingId];
+                    const userId = generateUserId(user);
+                    if (users[userId]) {
+                        users[userId].push(book);
+                    }
+                }
+
+                // Prepare data for Excel
+                const maxStartups = Math.max(...Object.values(users).map(startups => startups.length));
+                const data = [allUsers];
+
+                for (let i = 0; i < maxStartups; i++) {
+                    const row = allUsers.map(user => users[user][i] || '');
+                    data.push(row);
+                }
+
+                // Create a new workbook and a worksheet
+                const workbook = XLSX.utils.book_new();
+                const worksheet = XLSX.utils.aoa_to_sheet(data);
+
+                // Append worksheet to workbook
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Bookings');
+
+                // Export to Excel
+                XLSX.writeFile(workbook, 'bookings.xlsx');
+            });
         };
     });
 </script>
